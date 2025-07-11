@@ -98,53 +98,116 @@ router.post('/seed', async (req, res) => {
   try {
     const sampleBuses = [
       {
-        busName: "Perdoor Express",
-        busNumber: "KL-01-1234",
-        route: "Thiruvananthapuram",
+        busName: "KG Road Express",
+        busNumber: "KA-20-1001",
+        route: "KG Road",
         departureTime: "06:00",
-        arrivalTime: "09:30"
+        arrivalTime: "06:45"
       },
       {
-        busName: "City Link",
-        busNumber: "KL-01-1235",
-        route: "Kottayam",
-        departureTime: "07:15",
-        arrivalTime: "09:30"
-      },
-      {
-        busName: "Super Fast",
-        busNumber: "KL-01-1236",
-        route: "Ernakulam",
+        busName: "KG Road Fast",
+        busNumber: "KA-20-1002",
+        route: "KG Road",
         departureTime: "08:30",
-        arrivalTime: "12:30"
+        arrivalTime: "09:15"
       },
       {
-        busName: "Night Rider",
-        busNumber: "KL-01-1237",
-        route: "Thiruvananthapuram",
-        departureTime: "22:00",
-        arrivalTime: "01:15"
+        busName: "KG Road Service",
+        busNumber: "KA-20-1003",
+        route: "KG Road",
+        departureTime: "16:00",
+        arrivalTime: "16:45"
       },
       {
-        busName: "Morning Glory",
-        busNumber: "KL-01-1238",
-        route: "Kollam",
+        busName: "Bramavara Express",
+        busNumber: "KA-20-2001",
+        route: "Bramavara",
+        departureTime: "07:00",
+        arrivalTime: "08:00"
+      },
+      {
+        busName: "Bramavara Local",
+        busNumber: "KA-20-2002",
+        route: "Bramavara",
+        departureTime: "14:30",
+        arrivalTime: "15:30"
+      },
+      {
+        busName: "Bramavara Evening",
+        busNumber: "KA-20-2003",
+        route: "Bramavara",
+        departureTime: "18:00",
+        arrivalTime: "19:00"
+      },
+      {
+        busName: "Hebri Express",
+        busNumber: "KA-20-3001",
+        route: "Hebri",
+        departureTime: "06:30",
+        arrivalTime: "07:45"
+      },
+      {
+        busName: "Hebri Fast",
+        busNumber: "KA-20-3002",
+        route: "Hebri",
+        departureTime: "12:00",
+        arrivalTime: "13:15"
+      },
+      {
+        busName: "Hebri Night",
+        busNumber: "KA-20-3003",
+        route: "Hebri",
+        departureTime: "20:30",
+        arrivalTime: "21:45"
+      },
+      {
+        busName: "Manipal Express",
+        busNumber: "KA-20-4001",
+        route: "Manipal",
         departureTime: "05:45",
         arrivalTime: "07:30"
       },
       {
-        busName: "Evening Express",
-        busNumber: "KL-01-1239",
-        route: "Thiruvananthapuram",
-        departureTime: "16:00",
-        arrivalTime: "19:30"
+        busName: "Manipal Student Special",
+        busNumber: "KA-20-4002",
+        route: "Manipal",
+        departureTime: "08:00",
+        arrivalTime: "09:45"
       },
       {
-        busName: "Afternoon Service",
-        busNumber: "KL-01-1240",
-        route: "Kottayam",
-        departureTime: "14:30",
-        arrivalTime: "16:45"
+        busName: "Manipal Evening",
+        busNumber: "KA-20-4003",
+        route: "Manipal",
+        departureTime: "15:30",
+        arrivalTime: "17:15"
+      },
+      {
+        busName: "Manipal Late Night",
+        busNumber: "KA-20-4004",
+        route: "Manipal",
+        departureTime: "22:00",
+        arrivalTime: "23:45"
+      },
+      {
+        busName: "Ajekar Express",
+        busNumber: "KA-20-5001",
+        route: "Ajekar",
+        departureTime: "07:15",
+        arrivalTime: "08:30"
+      },
+      {
+        busName: "Ajekar Local",
+        busNumber: "KA-20-5002",
+        route: "Ajekar",
+        departureTime: "13:45",
+        arrivalTime: "15:00"
+      },
+      {
+        busName: "Ajekar Evening",
+        busNumber: "KA-20-5003",
+        route: "Ajekar",
+        departureTime: "17:30",
+        arrivalTime: "18:45"
       }
     ];
 
