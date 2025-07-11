@@ -23,6 +23,7 @@ mongoose.connect(MONGODB_URI, {
 // Routes
 app.use('/api/buses', require('./routes/buses'));
 app.use('/api/routes', require('./routes/routes'));
+app.use('/api/admin', require('./routes/admin'));
 
 // Serve static files in production
 if (process.env.NODE_ENV === 'production') {

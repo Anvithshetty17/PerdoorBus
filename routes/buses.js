@@ -23,31 +23,15 @@ router.get('/route/:routeName', async (req, res) => {
         return false;
       }
 
-      // If bus has frequency, calculate next departure
-      if (bus.frequency) {
+      // Check if departure time hasn't passed
+      if (bus.departureTime > currentTime) {
         const [hours, minutes] = bus.departureTime.split(':').map(Number);
-        let busTime = moment().hours(hours).minutes(minutes).seconds(0);
-        
-        // Find next occurrence based on frequency
-        while (busTime.isBefore(now)) {
-          busTime.add(bus.frequency, 'minutes');
-        }
-        
-        // Add calculated next time to bus object
-        bus._doc.nextDeparture = busTime.format('HH:mm');
+        const busTime = moment().hours(hours).minutes(minutes).seconds(0);
+        bus._doc.nextDeparture = bus.departureTime;
         bus._doc.timeUntilDeparture = busTime.diff(now, 'minutes');
         return true;
-      } else {
-        // For single-time buses, check if time hasn't passed
-        if (bus.departureTime > currentTime) {
-          const [hours, minutes] = bus.departureTime.split(':').map(Number);
-          const busTime = moment().hours(hours).minutes(minutes).seconds(0);
-          bus._doc.nextDeparture = bus.departureTime;
-          bus._doc.timeUntilDeparture = busTime.diff(now, 'minutes');
-          return true;
-        }
-        return false;
       }
+      return false;
     });
 
     // Sort by next departure time
@@ -118,48 +102,49 @@ router.post('/seed', async (req, res) => {
         busNumber: "KL-01-1234",
         route: "Thiruvananthapuram",
         departureTime: "06:00",
-        busType: "Deluxe",
-        fare: 150,
-        duration: "3h 30m",
-        frequency: 60
+        arrivalTime: "09:30"
       },
       {
         busName: "City Link",
         busNumber: "KL-01-1235",
         route: "Kottayam",
         departureTime: "07:15",
-        busType: "Ordinary",
-        fare: 80,
-        duration: "2h 15m"
+        arrivalTime: "09:30"
       },
       {
         busName: "Super Fast",
         busNumber: "KL-01-1236",
         route: "Ernakulam",
         departureTime: "08:30",
-        busType: "AC",
-        fare: 200,
-        duration: "4h 00m",
-        frequency: 90
+        arrivalTime: "12:30"
       },
       {
         busName: "Night Rider",
         busNumber: "KL-01-1237",
         route: "Thiruvananthapuram",
         departureTime: "22:00",
-        busType: "Volvo",
-        fare: 250,
-        duration: "3h 15m"
+        arrivalTime: "01:15"
       },
       {
         busName: "Morning Glory",
         busNumber: "KL-01-1238",
         route: "Kollam",
         departureTime: "05:45",
-        busType: "Ordinary",
-        fare: 60,
-        duration: "1h 45m",
-        frequency: 45
+        arrivalTime: "07:30"
+      },
+      {
+        busName: "Evening Express",
+        busNumber: "KL-01-1239",
+        route: "Thiruvananthapuram",
+        departureTime: "16:00",
+        arrivalTime: "19:30"
+      },
+      {
+        busName: "Afternoon Service",
+        busNumber: "KL-01-1240",
+        route: "Kottayam",
+        departureTime: "14:30",
+        arrivalTime: "16:45"
       }
     ];
 

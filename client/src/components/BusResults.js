@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { FaBus, FaClock, FaRupeeSign, FaArrowLeft, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaBus, FaClock, FaArrowLeft, FaMapMarkerAlt } from 'react-icons/fa';
 
 const BusResults = ({ data, onNewSearch }) => {
   const { route, upcomingBuses, currentTime } = data;
@@ -15,15 +15,12 @@ const BusResults = ({ data, onNewSearch }) => {
     }
   };
 
-  const getBusTypeColor = (busType) => {
-    const colors = {
-      'Ordinary': '#28a745',
-      'Deluxe': '#007bff',
-      'AC': '#17a2b8',
-      'Volvo': '#6f42c1',
-      'Private': '#fd7e14'
-    };
-    return colors[busType] || '#6c757d';
+  const formatTime = (time) => {
+    const [hours, minutes] = time.split(':');
+    const hour = parseInt(hours);
+    const ampm = hour >= 12 ? 'PM' : 'AM';
+    const displayHour = hour % 12 || 12;
+    return `${displayHour}:${minutes} ${ampm}`;
   };
 
   if (!upcomingBuses || upcomingBuses.length === 0) {
@@ -67,48 +64,40 @@ const BusResults = ({ data, onNewSearch }) => {
                 <h3 className="bus-name">{bus.busName}</h3>
                 <span className="bus-number">{bus.busNumber}</span>
               </div>
-              <div 
-                className="bus-type-badge"
-                style={{ backgroundColor: getBusTypeColor(bus.busType) }}
-              >
-                {bus.busType}
-              </div>
-            </div>
-
-            <div className="bus-timing">
-              <div className="departure-time">
-                <FaClock className="time-icon" />
-                <div>
-                  <span className="next-departure">{bus.nextDeparture}</span>
-                  <span className="time-until">
-                    in {formatTimeUntil(bus.timeUntilDeparture)}
-                  </span>
-                </div>
-              </div>
-              
               {index === 0 && (
-                <div className="next-bus-indicator">
+                <div className="next-bus-badge">
                   NEXT BUS
                 </div>
               )}
             </div>
 
-            <div className="bus-details">
-              <div className="detail-item">
-                <FaRupeeSign className="detail-icon" />
-                <span>₹{bus.fare}</span>
-              </div>
-              <div className="detail-item">
-                <FaClock className="detail-icon" />
-                <span>{bus.duration}</span>
-              </div>
-              {bus.frequency && (
-                <div className="detail-item">
-                  <span className="frequency-text">
-                    Every {bus.frequency} mins
-                  </span>
+            <div className="bus-timing">
+              <div className="timing-info">
+                <div className="departure-info">
+                  <FaClock className="time-icon" />
+                  <div>
+                    <span className="time-label">Departure</span>
+                    <span className="time-value">{formatTime(bus.nextDeparture)}</span>
+                    <span className="time-until">
+                      in {formatTimeUntil(bus.timeUntilDeparture)}
+                    </span>
+                  </div>
                 </div>
-              )}
+                
+                <div className="arrival-info">
+                  <FaMapMarkerAlt className="arrival-icon" />
+                  <div>
+                    <span className="time-label">Arrival</span>
+                    <span className="time-value">{formatTime(bus.arrivalTime)}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bus-route-info">
+              <span className="route-text">
+                Perdoor → {bus.route}
+              </span>
             </div>
 
             {bus.timeUntilDeparture <= 10 && (

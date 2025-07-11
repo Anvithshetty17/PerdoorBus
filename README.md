@@ -6,11 +6,14 @@ A full-stack MERN (MongoDB, Express, React, Node.js) application for bus timing 
 
 - **Route Search**: Search for buses by destination with autocomplete suggestions
 - **Real-time Timing**: Calculate and display next upcoming buses based on current time
-- **Bus Information**: Complete details including fare, duration, bus type, and frequency
+- **Simple Bus Information**: Clean display with departure/arrival times only
 - **Popular Routes**: Quick access to frequently traveled destinations
-- **Responsive Design**: Modern, mobile-friendly interface
+- **Responsive Design**: Modern, mobile-friendly interface with glassmorphism effects
 - **Time-based Filtering**: Show only upcoming buses with time until departure
 - **Urgent Alerts**: Special notifications for buses leaving soon
+- **Admin Panel**: Secure login and complete bus management system
+- **CRUD Operations**: Add, edit, and delete bus information with beautiful forms
+- **Real-time Updates**: Instant updates without page refresh
 
 ## 🛠️ Technology Stack
 
@@ -60,12 +63,20 @@ Create a `.env` file in the root directory:
 NODE_ENV=development
 PORT=5000
 MONGODB_URI=mongodb://localhost:27017/perdoor-bus-timing
+JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
 ```
 
 ### 5. Start MongoDB
 Ensure MongoDB is running on your system.
 
-### 6. Seed the database (optional)
+### 6. Create Admin Account
+The system will automatically create a default admin account:
+```
+Username: admin
+Password: admin123
+```
+
+### 7. Seed the database (optional)
 To add sample bus data, make a POST request to:
 ```
 POST http://localhost:5000/api/buses/seed

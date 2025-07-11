@@ -21,26 +21,13 @@ const BusSchema = new mongoose.Schema({
     type: String, // Format: "HH:MM" (24-hour format)
     required: true
   },
-  frequency: {
-    type: Number, // Frequency in minutes (for buses that run multiple times)
-    default: null
+  arrivalTime: {
+    type: String, // Format: "HH:MM" (24-hour format)
+    required: true
   },
   operatingDays: {
     type: [String], // ["Monday", "Tuesday", etc.] or ["Daily"]
     default: ["Daily"]
-  },
-  busType: {
-    type: String,
-    enum: ['Ordinary', 'Deluxe', 'AC', 'Volvo', 'Private'],
-    default: 'Ordinary'
-  },
-  fare: {
-    type: Number,
-    required: true
-  },
-  duration: {
-    type: String, // Estimated travel time
-    required: true
   },
   isActive: {
     type: Boolean,
