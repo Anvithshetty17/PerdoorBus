@@ -16,12 +16,12 @@ const AdminLogin = ({ onLogin, onBack }) => {
       ...credentials,
       [e.target.name]: e.target.value
     });
-    if (error) setError(''); // Clear error when user starts typing
+    if (error) setError('');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     if (!credentials.username || !credentials.password) {
       setError('Please enter both username and password');
       return;
@@ -32,9 +32,18 @@ const AdminLogin = ({ onLogin, onBack }) => {
 
     try {
       const response = await axios.post('/api/admin/login', credentials);
-      
+
       if (response.data.success) {
-        onLogin(response.data.token, response.data.admin);
+        const token = response.data.token;
+
+        // ✅ Store the token in localStorage
+        localStorage.setItem('token', token);
+
+        // ✅ Set the default Authorization header for future axios requests
+        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+        // ✅ Pass token and admin data to parent
+        onLogin(token, response.data.admin);
       }
     } catch (error) {
       console.error('Login error:', error);
