@@ -201,6 +201,13 @@ body {
 }
 
 .search-container {
+  width: 100%;
+}
+
+.search-form {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-end;
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 20px;
@@ -208,53 +215,35 @@ body {
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
 }
 
-.search-form {
+.destination-input-container {
+  position: relative;
+  flex: 1;
   display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
+  align-items: center;
 }
 
-.input-group {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 1.5rem;
+.input-icon {
+  position: absolute;
+  left: 1rem;
+  color: #667eea;
+  z-index: 2;
+  font-size: 1.1rem;
 }
 
-.from-input, .to-input {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.from-input label, .to-input label {
-  font-weight: 600;
-  color: #333;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.input-readonly, .destination-input {
-  padding: 1rem;
+.destination-input {
+  padding: 1rem 1rem 1rem 3rem;
   border: 2px solid #e0e0e0;
   border-radius: 12px;
   font-size: 1rem;
   transition: all 0.3s ease;
-}
-
-.input-readonly {
-  background: #f8f9fa;
-  color: #666;
+  background: white;
+  width: 100%;
 }
 
 .destination-input:focus {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-}
-
-.destination-input-container {
-  position: relative;
 }
 
 .suggestions-dropdown {
@@ -276,6 +265,14 @@ body {
   cursor: pointer;
   transition: background-color 0.2s ease;
   border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.suggestion-icon {
+  color: #667eea;
+  font-size: 0.9rem;
 }
 
 .suggestion-item:hover {
@@ -1454,6 +1451,211 @@ body {
   animation: pulse 2s infinite;
 }
 
+/* Next Bus Section - Prominently Displayed */
+.next-bus-section {
+  margin-bottom: 2rem;
+}
+
+.next-bus-title {
+  color: #333;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 700;
+}
+
+.next-bus-card {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 20px;
+  padding: 2rem;
+  box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.next-bus-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.next-bus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.next-bus-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.next-bus-info .bus-number {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.next-bus-badge {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.next-bus-timing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.next-bus-time, .next-bus-arrival {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.time-details, .arrival-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.time-label {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.time-value {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0.2rem 0;
+}
+
+.time-until {
+  font-size: 0.9rem;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.time-icon, .arrival-icon {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.urgent-alert {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  position: relative;
+  z-index: 1;
+}
+
+/* Other Buses Section */
+.other-buses-section {
+  margin-top: 2rem;
+}
+
+.other-buses-title {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.other-buses-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1rem;
+}
+
+.other-bus-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.other-bus-card:hover {
+  transform: translateY(-3px);
+  border-color: #667eea;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.15);
+}
+
+.other-bus-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+
+.other-bus-header h4 {
+  margin: 0;
+  color: #333;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.other-bus-header .bus-number {
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.other-bus-timing {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.timing-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.timing-item .time-icon,
+.timing-item .arrival-icon {
+  color: #667eea;
+  font-size: 0.9rem;
+}
+
+.other-bus-card .time-until {
+  color: #667eea;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.3rem 0;
+  background: rgba(102, 126, 234, 0.1);
+  border-radius: 8px;
+}
+
 @media (max-width: 768px) {
   .admin-login-card {
     padding: 2rem;
@@ -1500,5 +1702,30 @@ body {
 
   .header-actions {
     order: 3;
+  }
+
+  /* Mobile Next Bus Section */
+  .next-bus-timing {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .next-bus-time, .next-bus-arrival {
+    justify-content: center;
+  }
+
+  .other-buses-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .other-bus-timing {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+
+  .timing-item {
+    justify-content: center;
   }
 }
