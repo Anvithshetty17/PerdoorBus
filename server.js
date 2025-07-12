@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const path = require('path');
+const Admin = require('./models/Admin');
 require('dotenv').config();
 
 const app = express();
@@ -17,7 +18,27 @@ mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 })
-.then(() => console.log('Connected to MongoDB'))
+.then(async () => {
+  console.log('Connected to MongoDB');
+  
+  // Initialize default admin account if none exists
+  try {
+    const adminExists = await Admin.findOne();
+    if (!adminExists) {
+      const admin = new Admin({
+        username: 'admin',
+        password: 'admin123',
+        email: 'admin@perdoor.com'
+      });
+      await admin.save();
+      console.log('Default admin account created:');
+      console.log('Username: admin');
+      console.log('Password: admin123');
+    }
+  } catch (error) {
+    console.error('Error initializing admin:', error);
+  }
+})
 .catch(err => console.error('MongoDB connection error:', err));
 
 // Routes

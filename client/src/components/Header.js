@@ -24,18 +24,13 @@ const Header = ({ currentView, onAdminClick, onHomeClick, adminData }) => {
           
           <div className="header-center">
             <div className="header-info">
-              <div className="info-item">
-                <FaMapMarkerAlt className="info-icon" />
-                <span>From: Perdoor</span>
-              </div>
+              
               <div className="info-item">
                 <FaClock className="info-icon" />
                 <span>{getCurrentTime()}</span>
               </div>
             </div>
-          </div>
-
-          <div className="header-actions">
+            <div  className="header-actions">
             {currentView === 'admin-dashboard' && adminData ? (
               <div className="admin-section">
                 <div className="admin-welcome">
@@ -58,6 +53,9 @@ const Header = ({ currentView, onAdminClick, onHomeClick, adminData }) => {
               </div>
             )}
           </div>
+          </div>
+
+          
         </div>
       </div>
     </header>

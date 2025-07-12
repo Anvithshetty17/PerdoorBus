@@ -47,15 +47,7 @@ const BusSearch = ({ onSearch, loading }) => {
       <div className="search-container">
         <form onSubmit={handleSubmit} className="search-form">
           <div className="input-group">
-            <div className="from-input">
-              <label>From:</label>
-              <input 
-                type="text" 
-                value="Perdoor" 
-                readOnly 
-                className="input-readonly"
-              />
-            </div>
+           
             
             <div className="to-input">
               <label>To:</label>
