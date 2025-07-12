@@ -1,196 +1,136 @@
-# Perdoor Bus Timing Website
+# Perdoor Bus Timing App
 
-A full-stack MERN (MongoDB, Express, React, Node.js) application for bus timing management in Perdoor. This application helps travelers find the next available buses to their destinations with real-time timing calculations.
+A modern, mobile-friendly bus timing application for travelers in Perdoor, Kerala.
 
-## 🚌 Features
+## Features
 
-- **Route Search**: Search for buses by destination with autocomplete suggestions
-- **Real-time Timing**: Calculate and display next upcoming buses based on current time
-- **Simple Bus Information**: Clean display with departure/arrival times only
-- **Popular Routes**: Quick access to frequently traveled destinations
-- **Responsive Design**: Modern, mobile-friendly interface with glassmorphism effects
-- **Time-based Filtering**: Show only upcoming buses with time until departure
-- **Urgent Alerts**: Special notifications for buses leaving soon
-- **Admin Panel**: Secure login and complete bus management system
-- **CRUD Operations**: Add, edit, and delete bus information with beautiful forms
-- **Real-time Updates**: Instant updates without page refresh
+### For Users
+- **Mobile-First Design**: Optimized for mobile devices with attractive UI
+- **Real-time Bus Search**: Find buses to your destination
+- **Popular Routes**: Quick access to frequently traveled routes
+- **Live Timing**: See arrival times and bus status
 
-## 🛠️ Technology Stack
+### For Admins
+- **Simplified Management**: Easy-to-use admin interface
+- **Quick Bus Addition**: Add buses with just 4 fields:
+  - Bus Name
+  - Route (destination)
+  - Arrival Time
+  - Active Status
+- **Secure Access**: Admin panel accessible via `/admin` URL
+
+## Quick Start
+
+### Prerequisites
+- Node.js (v14 or higher)
+- MongoDB (local or cloud)
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd perdoor-bus-timing
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   cd client && npm install
+   cd ..
+   ```
+
+3. **Set up environment variables**
+   Create a `.env` file in the root directory:
+   ```
+   MONGODB_URI=mongodb://localhost:27017/perdoor-bus-timing
+   JWT_SECRET=your-secret-key
+   PORT=5000
+   ```
+
+4. **Start the application**
+   ```bash
+   # Start backend server
+   npm start
+   
+   # In another terminal, start frontend
+   cd client && npm start
+   ```
+
+5. **Access the application**
+   - **User Interface**: http://localhost:3000
+   - **Admin Panel**: http://localhost:3000/admin
+
+## Admin Access
+
+### Default Credentials
+- **Username**: `admin`
+- **Password**: `admin123`
+
+### Admin Features
+- **Add New Bus**: Click "Add New Bus" button
+- **Edit Bus**: Click the edit icon on any bus card
+- **Delete Bus**: Click the delete icon on any bus card
+- **Toggle Status**: Use the checkbox to activate/deactivate buses
+
+### Admin Form Fields
+The admin interface has been simplified to only require:
+1. **Bus Name** - The name of the bus service
+2. **Route** - The destination (e.g., "Thiruvananthapuram")
+3. **Arrival Time** - When the bus arrives at the destination
+4. **Active Status** - Whether the bus is currently operating
+
+## Mobile-First Design
+
+The application is designed with mobile users in mind:
+- **Responsive Layout**: Works perfectly on all screen sizes
+- **Touch-Friendly**: Large buttons and easy navigation
+- **Fast Loading**: Optimized for mobile networks
+- **Modern UI**: Clean, attractive design with smooth animations
+
+## API Endpoints
+
+### Public Endpoints
+- `GET /api/buses/route/:route` - Search buses by route
+- `GET /api/routes` - Get all available routes
+
+### Admin Endpoints (Protected)
+- `POST /api/admin/login` - Admin login
+- `GET /api/admin/profile` - Get admin profile
+- `GET /api/admin/buses` - Get all buses
+- `POST /api/admin/buses` - Add new bus
+- `PUT /api/admin/buses/:id` - Update bus
+- `DELETE /api/admin/buses/:id` - Delete bus
+
+## Technology Stack
 
 ### Backend
 - **Node.js** - Runtime environment
 - **Express.js** - Web framework
 - **MongoDB** - Database
-- **Mongoose** - ODM for MongoDB
-- **Moment.js** - Date/time manipulation
+- **Mongoose** - ODM
+- **JWT** - Authentication
 
 ### Frontend
-- **React** - UI framework
+- **React.js** - UI library
 - **Axios** - HTTP client
 - **React Icons** - Icon library
-- **CSS3** - Modern styling with gradients and animations
+- **CSS3** - Styling with mobile-first approach
 
-## 📋 Prerequisites
+## Deployment
 
-Before you begin, ensure you have the following installed:
-- Node.js (v14 or higher)
-- MongoDB (running locally or MongoDB Atlas)
-- npm or yarn package manager
+### Production Setup
+1. Set `NODE_ENV=production` in your environment
+2. Build the React app: `cd client && npm run build`
+3. The server will automatically serve the built files
 
-## 🚀 Installation & Setup
+### Environment Variables
+- `MONGODB_URI` - MongoDB connection string
+- `JWT_SECRET` - Secret key for JWT tokens
+- `PORT` - Server port (default: 5000)
+- `NODE_ENV` - Environment (development/production)
 
-### 1. Clone the repository
-```bash
-git clone <repository-url>
-cd perdoor-bus-timing
-```
-
-### 2. Install backend dependencies
-```bash
-npm install
-```
-
-### 3. Install frontend dependencies
-```bash
-cd client
-npm install
-cd ..
-```
-
-### 4. Environment Configuration
-Create a `.env` file in the root directory:
-```env
-NODE_ENV=development
-PORT=5000
-MONGODB_URI=mongodb://localhost:27017/perdoor-bus-timing
-JWT_SECRET=your-super-secret-jwt-key-change-this-in-production
-```
-
-### 5. Start MongoDB
-Ensure MongoDB is running on your system.
-
-### 6. Create Admin Account
-The system will automatically create a default admin account:
-```
-Username: admin
-Password: admin123
-```
-
-### 7. Seed the database (optional)
-To add sample bus data, make a POST request to:
-```
-POST http://localhost:5000/api/buses/seed
-```
-
-## 🏃‍♂️ Running the Application
-
-### Development Mode (Recommended)
-Run both backend and frontend simultaneously:
-```bash
-npm run dev
-```
-
-### Separate Commands
-Run backend only:
-```bash
-npm run server
-```
-
-Run frontend only:
-```bash
-npm run client
-```
-
-### Production Build
-```bash
-npm run build
-npm start
-```
-
-The application will be available at:
-- Frontend: `http://localhost:3000`
-- Backend API: `http://localhost:5000`
-
-## 📊 Database Schema
-
-### Bus Model
-```javascript
-{
-  busName: String,        // Name of the bus service
-  busNumber: String,      // Bus registration number
-  route: String,          // Destination route
-  departureTime: String,  // Departure time (HH:MM format)
-  frequency: Number,      // Frequency in minutes (optional)
-  operatingDays: [String], // Days of operation
-  busType: String,        // Type: Ordinary, Deluxe, AC, Volvo, Private
-  fare: Number,           // Ticket fare
-  duration: String,       // Journey duration
-  isActive: Boolean       // Active status
-}
-```
-
-## 🔌 API Endpoints
-
-### Bus Routes
-- `GET /api/buses/route/:routeName` - Get buses for a specific route
-- `GET /api/buses/routes` - Get all available routes
-- `POST /api/buses` - Add a new bus
-- `POST /api/buses/seed` - Add sample data
-
-### Route Management
-- `GET /api/routes/search/:query` - Search routes by name
-- `GET /api/routes/popular` - Get popular routes
-
-## 💡 Usage
-
-1. **Search for Buses**: Enter your destination in the search box
-2. **View Results**: See upcoming buses sorted by departure time
-3. **Next Bus Indicator**: The first result shows the next available bus
-4. **Route Suggestions**: Get autocomplete suggestions while typing
-5. **Popular Routes**: Click on popular destinations for quick access
-6. **Time Information**: View departure time and time until departure
-
-## 🎨 Design Features
-
-- **Modern UI**: Clean, gradient-based design with glassmorphism effects
-- **Responsive Layout**: Works seamlessly on desktop, tablet, and mobile
-- **Interactive Elements**: Hover effects and smooth transitions
-- **Color-coded Bus Types**: Different colors for various bus categories
-- **Time-based Alerts**: Visual indicators for urgent departures
-
-## 🔧 Customization
-
-### Adding New Routes
-1. Use the `/api/buses` POST endpoint to add new buses
-2. Or directly insert into MongoDB using the Bus schema
-
-### Modifying Bus Types
-Update the `busType` enum in `models/Bus.js`:
-```javascript
-busType: {
-  type: String,
-  enum: ['Ordinary', 'Deluxe', 'AC', 'Volvo', 'Private', 'NewType'],
-  default: 'Ordinary'
-}
-```
-
-### Styling Changes
-Modify `client/src/App.css` for visual customizations.
-
-## 🚀 Deployment
-
-### Local Production
-```bash
-npm run build
-npm start
-```
-
-### Cloud Deployment (Heroku)
-1. Set environment variables in Heroku dashboard
-2. Connect to MongoDB Atlas
-3. Push to Heroku repository
-
-## 🤝 Contributing
+## Contributing
 
 1. Fork the repository
 2. Create a feature branch
@@ -198,27 +138,10 @@ npm start
 4. Test thoroughly
 5. Submit a pull request
 
-## 📝 License
+## License
 
 This project is licensed under the MIT License.
 
-## 🆘 Support
-
-For issues and questions:
-1. Check existing issues in the repository
-2. Create a new issue with detailed description
-3. Contact the development team
-
-## 🔮 Future Enhancements
-
-- Real-time bus tracking with GPS
-- User authentication and favorites
-- Bus booking functionality
-- Push notifications for departures
-- Admin dashboard for bus management
-- Multi-language support
-- Payment integration
-
 ---
 
-**Made with ❤️ for the Perdoor community**
+**Note**: This application is specifically designed for the Perdoor bus service and has been optimized for mobile users with a simplified admin interface for easy management.

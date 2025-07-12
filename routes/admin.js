@@ -112,32 +112,27 @@ router.get('/buses', auth, async (req, res) => {
 // Add new bus (admin only)
 router.post('/buses', auth, async (req, res) => {
   try {
-    const { busName, busNumber, route, departureTime, arrivalTime, operatingDays } = req.body;
+    const { busName, route, arrivalTime, isActive } = req.body;
 
     // Validation
-    if (!busName || !busNumber || !route || !departureTime || !arrivalTime) {
+    if (!busName || !route || !arrivalTime) {
       return res.status(400).json({
         success: false,
-        message: 'All fields are required'
+        message: 'Bus name, route, and arrival time are required'
       });
     }
 
-    // Check if bus number already exists
-    const existingBus = await Bus.findOne({ busNumber });
-    if (existingBus) {
-      return res.status(400).json({
-        success: false,
-        message: 'Bus number already exists'
-      });
-    }
+    // Generate a unique bus number
+    const busNumber = `KL-${Date.now().toString().slice(-6)}`;
 
     const bus = new Bus({
       busName,
       busNumber,
       route,
-      departureTime,
+      departureTime: '06:00', // Default departure time
       arrivalTime,
-      operatingDays: operatingDays || ['Daily']
+      operatingDays: ['Daily'],
+      isActive: isActive !== undefined ? isActive : true
     });
 
     await bus.save();
@@ -161,7 +156,7 @@ router.post('/buses', auth, async (req, res) => {
 router.put('/buses/:id', auth, async (req, res) => {
   try {
     const { id } = req.params;
-    const { busName, busNumber, route, departureTime, arrivalTime, operatingDays, isActive } = req.body;
+    const { busName, route, arrivalTime, isActive } = req.body;
 
     const bus = await Bus.findById(id);
     if (!bus) {
@@ -171,24 +166,10 @@ router.put('/buses/:id', auth, async (req, res) => {
       });
     }
 
-    // Check if bus number is being changed and if it already exists
-    if (busNumber !== bus.busNumber) {
-      const existingBus = await Bus.findOne({ busNumber });
-      if (existingBus) {
-        return res.status(400).json({
-          success: false,
-          message: 'Bus number already exists'
-        });
-      }
-    }
-
     // Update bus
     bus.busName = busName || bus.busName;
-    bus.busNumber = busNumber || bus.busNumber;
     bus.route = route || bus.route;
-    bus.departureTime = departureTime || bus.departureTime;
     bus.arrivalTime = arrivalTime || bus.arrivalTime;
-    bus.operatingDays = operatingDays || bus.operatingDays;
     bus.isActive = isActive !== undefined ? isActive : bus.isActive;
 
     await bus.save();

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { FaSearch, FaSpinner } from 'react-icons/fa';
+import { FaSearch, FaSpinner, FaMapMarkerAlt } from 'react-icons/fa';
 
 const BusSearch = ({ onSearch, loading }) => {
   const [destination, setDestination] = useState('');
@@ -46,36 +46,33 @@ const BusSearch = ({ onSearch, loading }) => {
     <div className="search-section">
       <div className="search-container">
         <form onSubmit={handleSubmit} className="search-form">
-          <div className="input-group">
-           
-            
-            <div className="to-input">
-              <label>To:</label>
-              <div className="destination-input-container">
-                <input
-                  type="text"
-                  value={destination}
-                  onChange={(e) => setDestination(e.target.value)}
-                  placeholder="Enter your destination"
-                  className="destination-input"
-                  onFocus={() => setShowSuggestions(suggestions.length > 0)}
-                />
-                
-                {showSuggestions && suggestions.length > 0 && (
-                  <div className="suggestions-dropdown">
-                    {suggestions.map((suggestion, index) => (
-                      <div
-                        key={index}
-                        className="suggestion-item"
-                        onClick={() => handleSuggestionClick(suggestion)}
-                      >
-                        {suggestion}
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
+          <div className="destination-input-container">
+            <div className="input-icon">
+              <FaMapMarkerAlt />
             </div>
+            <input
+              type="text"
+              value={destination}
+              onChange={(e) => setDestination(e.target.value)}
+              placeholder="Where do you want to go?"
+              className="destination-input"
+              onFocus={() => setShowSuggestions(suggestions.length > 0)}
+            />
+            
+            {showSuggestions && suggestions.length > 0 && (
+              <div className="suggestions-dropdown">
+                {suggestions.map((suggestion, index) => (
+                  <div
+                    key={index}
+                    className="suggestion-item"
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
+                    <FaMapMarkerAlt className="suggestion-icon" />
+                    {suggestion}
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
           
           <button 
