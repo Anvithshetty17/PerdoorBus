@@ -24,6 +24,20 @@ function App() {
     }
   }, [adminToken]);
 
+  // Check URL for admin route
+  useEffect(() => {
+    const path = window.location.pathname;
+    if (path === '/admin') {
+      if (adminToken) {
+        setCurrentView('admin-dashboard');
+      } else {
+        setCurrentView('admin-login');
+      }
+    } else {
+      setCurrentView('home');
+    }
+  }, [adminToken]);
+
   const verifyAdmin = async () => {
     try {
       const response = await axios.get('/api/admin/profile', {
@@ -41,6 +55,7 @@ function App() {
     setAdminData(admin);
     localStorage.setItem('adminToken', token);
     setCurrentView('admin-dashboard');
+    window.history.pushState({}, '', '/admin');
   };
 
   const handleAdminLogout = () => {
@@ -48,6 +63,7 @@ function App() {
     setAdminData(null);
     localStorage.removeItem('adminToken');
     setCurrentView('home');
+    window.history.pushState({}, '', '/');
   };
 
   const searchBuses = async (route) => {
@@ -81,7 +97,10 @@ function App() {
         return (
           <AdminLogin 
             onLogin={handleAdminLogin}
-            onBack={() => setCurrentView('home')}
+            onBack={() => {
+              setCurrentView('home');
+              window.history.pushState({}, '', '/');
+            }}
           />
         );
       
@@ -137,8 +156,10 @@ function App() {
     <div className="App">
       <Header 
         currentView={currentView}
-        onAdminClick={() => setCurrentView('admin-login')}
-        onHomeClick={() => setCurrentView('home')}
+        onHomeClick={() => {
+          setCurrentView('home');
+          window.history.pushState({}, '', '/');
+        }}
         adminData={adminData}
       />
       

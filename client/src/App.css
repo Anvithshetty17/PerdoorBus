@@ -10,6 +10,8 @@ body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   min-height: 100vh;
   color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .App {
@@ -706,6 +708,58 @@ body {
   .routes-grid {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
+
+  /* Mobile admin dashboard improvements */
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .dashboard-actions {
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .buses-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .bus-admin-card {
+    padding: 1rem;
+  }
+
+  .bus-card-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .bus-actions {
+    align-self: flex-end;
+  }
+
+  .modal-overlay {
+    padding: 1rem;
+  }
+
+  .bus-form-modal {
+    width: 95%;
+    max-width: none;
+    margin: 1rem;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .btn-primary, .btn-secondary {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 @media (max-width: 480px) {
@@ -723,6 +777,34 @@ body {
 
   .routes-grid {
     grid-template-columns: 1fr;
+  }
+
+  /* Extra small mobile improvements */
+  .admin-login-card {
+    padding: 2rem 1.5rem;
+    margin: 1rem;
+  }
+
+  .dashboard-header {
+    padding: 1rem;
+  }
+
+  .buses-section {
+    padding: 1rem;
+  }
+
+  .bus-form-modal {
+    width: 100%;
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+
+  .hero-section {
+    padding: 1rem 0;
+  }
+
+  .header-content {
+    padding: 0.5rem 0;
   }
 }
 
@@ -1097,6 +1179,29 @@ body {
   outline: none;
   border-color: #667eea;
   box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+/* Checkbox styles */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-weight: 500;
+  color: #333;
+  padding: 0.5rem 0;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+  cursor: pointer;
+  margin: 0;
+}
+
+.checkbox-label:hover {
+  color: #667eea;
 }
 
 .buses-section {

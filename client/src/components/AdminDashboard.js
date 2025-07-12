@@ -25,11 +25,9 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
 
   const [busForm, setBusForm] = useState({
     busName: '',
-    busNumber: '',
     route: '',
-    departureTime: '',
     arrivalTime: '',
-    operatingDays: ['Daily']
+    isActive: true
   });
 
   useEffect(() => {
@@ -54,11 +52,9 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
   const resetForm = () => {
     setBusForm({
       busName: '',
-      busNumber: '',
       route: '',
-      departureTime: '',
       arrivalTime: '',
-      operatingDays: ['Daily']
+      isActive: true
     });
     setShowAddForm(false);
     setEditingBus(null);
@@ -67,9 +63,10 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
   };
 
   const handleInputChange = (e) => {
+    const { name, value, type, checked } = e.target;
     setBusForm({
       ...busForm,
-      [e.target.name]: e.target.value
+      [name]: type === 'checkbox' ? checked : value
     });
   };
 
@@ -104,11 +101,9 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
   const handleEdit = (bus) => {
     setBusForm({
       busName: bus.busName,
-      busNumber: bus.busNumber,
       route: bus.route,
-      departureTime: bus.departureTime,
       arrivalTime: bus.arrivalTime,
-      operatingDays: bus.operatingDays
+      isActive: bus.isActive
     });
     setEditingBus(bus);
     setShowAddForm(true);
@@ -195,29 +190,16 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
             </div>
 
             <form onSubmit={handleSubmit} className="bus-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Bus Name *</label>
-                  <input
-                    type="text"
-                    name="busName"
-                    value={busForm.busName}
-                    onChange={handleInputChange}
-                    placeholder="e.g., Perdoor Express"
-                    required
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Bus Number *</label>
-                  <input
-                    type="text"
-                    name="busNumber"
-                    value={busForm.busNumber}
-                    onChange={handleInputChange}
-                    placeholder="e.g., KL-01-1234"
-                    required
-                  />
-                </div>
+              <div className="form-group">
+                <label>Bus Name *</label>
+                <input
+                  type="text"
+                  name="busName"
+                  value={busForm.busName}
+                  onChange={handleInputChange}
+                  placeholder="e.g., Perdoor Express"
+                  required
+                />
               </div>
 
               <div className="form-group">
@@ -232,27 +214,28 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
                 />
               </div>
 
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Departure Time *</label>
+              <div className="form-group">
+                <label>Arrival Time *</label>
+                <input
+                  type="time"
+                  name="arrivalTime"
+                  value={busForm.arrivalTime}
+                  onChange={handleInputChange}
+                  required
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="checkbox-label">
                   <input
-                    type="time"
-                    name="departureTime"
-                    value={busForm.departureTime}
+                    type="checkbox"
+                    name="isActive"
+                    checked={busForm.isActive}
                     onChange={handleInputChange}
-                    required
                   />
-                </div>
-                <div className="form-group">
-                  <label>Arrival Time *</label>
-                  <input
-                    type="time"
-                    name="arrivalTime"
-                    value={busForm.arrivalTime}
-                    onChange={handleInputChange}
-                    required
-                  />
-                </div>
+                  <span className="checkmark"></span>
+                  Active Bus
+                </label>
               </div>
 
               <div className="form-actions">
@@ -303,7 +286,6 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
                 <div className="bus-card-header">
                   <div className="bus-main-info">
                     <h3>{bus.busName}</h3>
-                    <span className="bus-number">{bus.busNumber}</span>
                   </div>
                   <div className="bus-actions">
                     <button 
@@ -332,11 +314,8 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
                   <div className="time-info">
                     <FaClock className="time-icon" />
                     <div className="times">
-                      <span className="departure">
-                        Dep: {formatTime(bus.departureTime)}
-                      </span>
                       <span className="arrival">
-                        Arr: {formatTime(bus.arrivalTime)}
+                        Arrival: {formatTime(bus.arrivalTime)}
                       </span>
                     </div>
                   </div>
@@ -345,9 +324,6 @@ const AdminDashboard = ({ adminData, adminToken, onLogout }) => {
                 <div className="bus-status">
                   <span className={`status-badge ${bus.isActive ? 'active' : 'inactive'}`}>
                     {bus.isActive ? 'Active' : 'Inactive'}
-                  </span>
-                  <span className="operating-days">
-                    {bus.operatingDays.join(', ')}
                   </span>
                 </div>
               </div>
